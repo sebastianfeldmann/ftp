@@ -1,0 +1,25 @@
+{
+  "name": "sebastianfeldmann/ftp",
+  "description": "A slim FTP wrapper.",
+  "type": "library",
+  "keywords": ["ftp"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sebastian Feldmann",
+      "email": "sebastian@phpbu.de",
+      "role": "lead"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/sebastianfeldmann/ftp/issues"
+  },
+  "autoload": {
+    "psr-4": {
+      "SebastianFeldmann\\Ftp\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0.0"
+  }
+}
