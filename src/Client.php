@@ -114,7 +114,12 @@ class Client
      */
     public function lsDirs(string $path = '') : array
     {
-        return array_filter($this->ls($path), function(File $file) { return $file->isDir(); });
+        return array_filter(
+            $this->ls($path),
+            function(File $file) {
+                return $file->isDir();
+            }
+        );
     }
 
     /**
@@ -126,7 +131,12 @@ class Client
      */
     public function lsFiles(string $path = '') : array
     {
-        return array_filter($this->ls($path), function(File $file) { return $file->isFile(); });
+        return array_filter(
+            $this->ls($path),
+            function(File $file) {
+                return $file->isFile();
+            }
+        );
     }
 
     /**
