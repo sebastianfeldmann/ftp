@@ -80,6 +80,25 @@ class Client
     }
 
     /**
+     * Determine if file is a directory.
+     *
+     * @param  string $name
+     * @return bool
+     */
+    public function isDir(string $name)
+    {
+        $current = $this->pwd();
+        try {
+            $this->chDir($name);
+            $this->chDir($current);
+            return true;
+        } catch (\Exception $e) {
+            // do nothing
+        }
+        return false;
+    }
+
+    /**
      * Returns to the home directory.
      *
      * @return void
@@ -99,8 +118,11 @@ class Client
     public function ls(string $path = '') : array
     {
         $list = [];
-        foreach ($this->mlsd($path) as $info) {
-            $list[] = new File($info);
+        foreach ($this->nlist($path) as $name) {
+            $type   = $this->isDir($name);
+            $mtime  = $this->mdtm($name);
+            $size   = $this->size($name);
+            $list[] = new File(['name' => $name, 'modify' => $mtime, 'type' => $type, 'size' => $size]);
         }
         return $list;
     }
