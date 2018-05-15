@@ -19,13 +19,13 @@ use RuntimeException;
  * @link    https://github.com/sebastianfeldmann/ftp
  * @since   Class available since Release 1.0.0
  *
- * @method void   cdUp()                   - Changes to the parent directory
- * @method void   chDir(string $directory) - Changes the current directory on a FTP server
- * @method void   pwd()                    - Returns current working directory
+ * @method bool   cdUp()                   - Changes to the parent directory
+ * @method string chDir(string $directory) - Changes the current directory on a FTP server
+ * @method string pwd()                    - Returns current working directory
  * @method array  nlist(string $path)      - Returns list of files in given dir
  * @method int    size(string $file)       - Returns given files sizes in bytes
  * @method string mdtm(string $file)       - Returns last modification time from given file
- * @method void   pasv(bool $passive)      - Sets the ftp passive mode on or off
+ * @method bool   pasv(bool $passive)      - Sets the ftp passive mode on or off
  */
 class Client
 {
