@@ -60,7 +60,7 @@ class File
     /**
      * File constructor.
      *
-     * @param array $ftpInfo
+     * @param  array $ftpInfo
      * @throws \Exception
      */
     public function __construct(array $ftpInfo)
@@ -74,7 +74,18 @@ class File
         $this->type   = $ftpInfo['type'];
         $this->name   = $ftpInfo['name'];
         $this->unique = $ftpInfo['unique'] ?? '';
-        $this->size   = $ftpInfo['size'] ?? 0;
+        $this->size   = $ftpInfo['size']   ?? 0;
+        $this->setModificationDate($ftpInfo);
+    }
+
+    /**
+     * Set modification date.
+     *
+     * @param  array $ftpInfo
+     * @throws \Exception
+     */
+    private function setModificationDate(array $ftpInfo)
+    {
         $modDate      = !empty($ftpInfo['modify'])
                       ? DateTimeImmutable::createFromFormat('YmdHis', $ftpInfo['modify'])
                       : false;
