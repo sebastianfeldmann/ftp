@@ -221,12 +221,12 @@ class Client
         }
 
         $old = error_reporting(0);
-        if (!$this->connection = \ftp_connect($this->host, $this->port)) {
+        if (!$this->connection = ftp_connect($this->host, $this->port)) {
             error_reporting($old);
             throw new RuntimeException(sprintf('unable to connect to ftp server %s', $this->host));
         }
 
-        if (!\ftp_login($this->connection, $this->user, $this->password)) {
+        if (!ftp_login($this->connection, $this->user, $this->password)) {
             error_reporting($old);
             throw new RuntimeException(
                 sprintf('authentication failed for %s@%s', $this->user, $this->host)
