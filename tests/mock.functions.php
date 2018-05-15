@@ -38,6 +38,12 @@ function ftp_login($connection, $user, $password)
     if ($connection['port'] != 21) {
         throw new \Exception('invalid connection');
     }
+    if (empty($user)) {
+        throw new \Exception('invalid user');
+    }
+    if (empty($password)) {
+        throw new \Exception('invalid password');
+    }
     return true;
 }
 
