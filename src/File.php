@@ -32,7 +32,7 @@ class File
     /**
      * Last modification date.
      *
-     * @var string
+     * @var \DateTimeImmutable
      */
     private $modify;
 
@@ -44,9 +44,9 @@ class File
     private $name;
 
     /**
-     * Size in  ytes.
+     * Size in bytes.
      *
-     * @var string
+     * @var int
      */
     private $size;
 
