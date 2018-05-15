@@ -74,7 +74,7 @@ class File
         $this->type   = $ftpInfo['type'];
         $this->name   = $ftpInfo['name'];
         $this->unique = $ftpInfo['unique'] ?? '';
-        $this->size   = $ftpInfo['size'] ?? '';
+        $this->size   = $ftpInfo['size'] ?? 0;
         $this->modify = !empty($ftpInfo['modify'])
                       ? DateTimeImmutable::createFromFormat('YmdHis', $ftpInfo['modify'])
                       : new DateTimeImmutable();
