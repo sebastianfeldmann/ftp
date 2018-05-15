@@ -78,7 +78,7 @@ class File
         $modDate      = !empty($ftpInfo['modify'])
                       ? DateTimeImmutable::createFromFormat('YmdHis', $ftpInfo['modify'])
                       : false;
-        $this->modify = $modDate ?? new DateTimeImmutable();
+        $this->modify = !empty($modDate) ? $modDate : new DateTimeImmutable();
     }
 
     /**
