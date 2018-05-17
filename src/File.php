@@ -18,7 +18,7 @@ use RuntimeException;
  * @package SebastianFeldmann\Ftp
  * @author  Sebastian Feldmann <sf@sebastian-feldmann.info>
  * @link    https://github.com/sebastianfeldmann/ftp
- * @since   Class available since Release 1.0.0
+ * @since   Class available since Release 0.9.0
  */
 class File
 {
