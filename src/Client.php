@@ -23,6 +23,7 @@ use RuntimeException;
  * @method string chDir(string $directory)                   - Changes the current directory on a FTP server
  * @method string mdtm(string $file)                         - Returns last modification time from given file
  * @method bool   mkDir(string $path)                        - Create a directory on the FTP server
+ * @method array  mlsd(string $path)                         - Return list of file info arrays (>= php 7.2.0)
  * @method array  nlist(string $path)                        - Returns list of files in given dir
  * @method bool   pasv(bool $passive)                        - Sets the ftp passive mode on or off
  * @method bool   put(string $name, string $file, int $mode) - Uploads a file to the FTP server
@@ -127,11 +128,47 @@ class Client
      */
     public function ls(string $path = '') : array
     {
+        return version_compare(PHP_VERSION, '7.2.0', '>=')
+            ? $this->ls72($path)
+            : $this->lsLegacy($path);
+
+    }
+
+    /**
+     * Return list of all files in directory for php 7.2.0 and higher.
+     *
+     * @param  string $path
+     * @return \SebastianFeldmann\Ftp\File[]
+     * @throws \Exception
+     */
+    private function ls72(string $path) : array
+    {
+        $list = [];
+        foreach ($this->mlsd($path) as $fileInfo) {
+            $list[] = new File($fileInfo);
+        }
+        return $list;
+    }
+
+    /**
+     * Return list of all files in directory for php versione below 7.2.0.
+     *
+     * @param  string $path
+     * @return \SebastianFeldmann\Ftp\File[]
+     * @throws \Exception
+     */
+    private function lsLegacy(string $path) : array
+    {
         $list = [];
         foreach ($this->nlist($path) as $name) {
             $type   = $this->isDir($name) ? 'dir' : 'file';
-            $mtime  = $this->mdtm($name);
             $size   = $this->size($name);
+            $mtime  = $this->mdtm($name);
+
+            if ($mtime == -1) {
+                throw new RuntimeException('FTP server doesnt support \'ftp_mdtm\'');
+            }
+
             $list[] = new File(['name' => $name, 'modify' => $mtime, 'type' => $type, 'size' => $size]);
         }
         return $list;
@@ -185,7 +222,9 @@ class Client
         foreach ($this->extractDirectories($path) as $dir) {
             // if change to directory fails
             // create the dir and change into it afterwards
-            if (!$this->chDir($dir)) {
+            try {
+                $this->chDir($dir);
+            } catch (\Exception $e) {
                 $this->mkDir($dir);
                 $this->chDir($dir);
             }

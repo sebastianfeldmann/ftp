@@ -65,6 +65,14 @@ function call_user_func_array($name, $args)
         'ftp_nlist' => [
             ['foo.txt', 'bar.txt', 'fiz', 'baz'],
         ],
+        'ftp_mlsd' => [
+            [
+                ['name' => 'foo.txt', 'modify' => '20180101123055', 'type' => 'file', 'size' => 100],
+                ['name' => 'bar.txt', 'modify' => '20180101123056', 'type' => 'file', 'size' => 200],
+                ['name' => 'fiz',     'modify' => '20180101123057', 'type' => 'dir',  'size' => 1],
+                ['name' => 'baz',     'modify' => '20180101123058', 'type' => 'dir',  'size' => 1],
+            ]
+        ],
         'ftp_pwd'   => [
             '/root',
         ],
