@@ -1,4 +1,4 @@
-# FTP 
+# FTP
 A tiny PHP FTP wrapper.
 
 [![Latest Stable Version](https://poser.pugx.org/sebastianfeldmann/ftp/v/stable.svg)](https://packagist.org/packages/sebastianfeldmann/ftp)
@@ -11,7 +11,7 @@ A tiny PHP FTP wrapper.
 ## List all files
 ```php
 $ftp = new SebastianFeldmann\Ftp\Client('ftp://user:password@example.com');
-foreach ($ftp->ls() as $file) {
+foreach ($ftp->ls() as $item) {
     echo $item->getFilename() . PHP_EOL;
 }
 ```
@@ -19,7 +19,7 @@ foreach ($ftp->ls() as $file) {
 ## List only directories
 ```php
 $ftp = new SebastianFeldmann\Ftp\Client('ftp://user:password@example.com');
-foreach ($ftp->lsDirs() as $file) {
+foreach ($ftp->lsDirs() as $item) {
     echo $item->getFilename() . PHP_EOL;
 }
 ```
@@ -27,7 +27,7 @@ foreach ($ftp->lsDirs() as $file) {
 ## List without directories
 ```php
 $ftp = new SebastianFeldmann\Ftp\Client('ftp://user:password@example.com');
-foreach ($ftp->lsFiles() as $file) {
+foreach ($ftp->lsFiles() as $item) {
     echo $item->getFilename() . PHP_EOL;
 }
 ```

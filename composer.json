@@ -19,7 +19,17 @@
       "SebastianFeldmann\\Ftp\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "SebastianFeldmann\\Ftp\\": "tests/"
+    },
+    "files": ["tests/mock.functions.php"]
+  },
   "require": {
-    "php": ">=7.0.0"
+    "php": ">=7.0.0",
+    "ext-ftp": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5 || ^7.0"
   }
 }
