@@ -67,9 +67,23 @@ function ftp_login($connection, $user, $password)
  * @param  array  $args
  * @return bool
  */
-function call_user_func_array($name, $args)
+function call_user_func_array($name = '', $args = '', $isTwice = false)
 {
     static $iterations;
+
+    if ($isTwice) {
+        if ($name === 'ftp_mdtm') {
+            $iterations[$name] = 0;
+        }
+        if ($name === 'ftp_mlsd') {
+            $iterations[$name]--;
+        }
+        if ($name === 'ftp_nlist' || $name === 'ftp_chdir' || $name === 'ftp_pwd' || $name === 'ftp_size') {
+            $iterations[$name] = 0;
+        }
+
+        return true;
+    }
 
     $iteration = $iterations[$name] ?? 0;
     $iterations[$name]++;
