@@ -21,6 +21,19 @@ function ftp_connect($host, $port)
     return ['host' => $host, 'port' => $port];
 }
 
+
+/**
+ * Mock internal ftp_ssl_connect.
+ *
+ * @param  string $host
+ * @param  string $port
+ * @return array
+ */
+function ftp_ssl_connect($host, $port)
+{
+    return ['host' => $host, 'port' => $port];
+}
+
 /**
  * Mock internal ftp_login.
  *

@@ -262,7 +262,11 @@ class Client
         }
 
         $old = error_reporting(0);
-        if (!$this->connection = ftp_connect($this->host, $this->port)) {
+        $isSsl = substr($this->host, 0, 4) === 'ftps';
+
+        $this->connection = $isSsl ? ftp_ssl_connect($this->host, $this->port) : ftp_connect($this->host, $this->port);
+
+        if (!$this->connection) {
             error_reporting($old);
             throw new RuntimeException(sprintf('unable to connect to ftp server %s', $this->host));
         }
