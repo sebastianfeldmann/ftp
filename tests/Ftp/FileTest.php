@@ -46,7 +46,7 @@ class FileTest extends TestCase
         $file = new File(['type' => 'file', 'name' => 'foo.txt', 'size' => 100]);
         $date = $file->getLastModifyDate();
 
-        $this->assertTrue(is_a($date, \DateTimeImmutable::class));
+        $this->assertInstanceOf(\DateTimeImmutable::class, $date);
     }
 
     /**
@@ -59,7 +59,7 @@ class FileTest extends TestCase
     }
 
     /**
-     * Tests File::isDir
+     * Tests File::isFile
      */
     public function testIsDir()
     {

@@ -75,12 +75,20 @@ class Client
     private $passive;
 
     /**
+     * Use ftps connection
+     *
+     * @var bool
+     */
+    private $isSecure;
+
+    /**
      * Client constructor.
      *
      * @param string $url
      * @param bool   $passive
+     * @param bool   $isSecure
      */
-    public function __construct(string $url, bool $passive = false)
+    public function __construct(string $url, bool $passive = false, bool $isSecure = false)
     {
         if (!extension_loaded('ftp')) {
             throw new RuntimeException('FTP extension is not loaded.');
@@ -262,7 +270,10 @@ class Client
         }
 
         $old = error_reporting(0);
-        if (!$this->connection = ftp_connect($this->host, $this->port)) {
+
+        $this->connection = ($this->isSecure ? ftp_ssl_connect($this->host, $this->port) : ftp_connect($this->host, $this->port));
+
+        if (!$this->connection) {
             error_reporting($old);
             throw new RuntimeException(sprintf('unable to connect to ftp server %s', $this->host));
         }
