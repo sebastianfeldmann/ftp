@@ -41,21 +41,21 @@ function ftp_ssl_connect($host, $port)
  * @param  string $user
  * @param  string $password
  * @return bool
- * @throws \Exception
+ * @throws \RuntimeException
  */
 function ftp_login($connection, $user, $password)
 {
     if ($connection['host'] != 'example.com') {
-        throw new \Exception('invalid connection');
+        throw new \RuntimeException('invalid connection');
     }
     if ($connection['port'] != 21) {
-        throw new \Exception('invalid connection');
+        throw new \RuntimeException('invalid connection');
     }
     if (empty($user)) {
-        throw new \Exception('invalid user');
+        throw new \RuntimeException('invalid user');
     }
     if (empty($password)) {
-        throw new \Exception('invalid password');
+        throw new \RuntimeException('invalid password');
     }
     return true;
 }
