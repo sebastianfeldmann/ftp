@@ -23,7 +23,7 @@ class FileTest extends TestCase
      */
     public function testConstructNoType()
     {
-        $this->expectedException(\Exception::class);
+        $this->expectException(\Exception::class);
         $file = new File([]);
     }
 
@@ -32,7 +32,7 @@ class FileTest extends TestCase
      */
     public function testConstructNoName()
     {
-        $this->expectedException(\Exception::class);
+        $this->expectException(\Exception::class);
         $file = new File(['type' => 'file']);
     }
 
