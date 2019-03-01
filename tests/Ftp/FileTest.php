@@ -20,21 +20,19 @@ class FileTest extends TestCase
 {
     /**
      * Tests File::__construct
-     *
-     * @expectedException \Exception
      */
     public function testConstructNoType()
     {
+        $this->expectedException(\Exception::class);
         $file = new File([]);
     }
 
     /**
      * Tests File::__construct
-     *
-     * @expectedException \Exception
      */
     public function testConstructNoName()
     {
+        $this->expectedException(\Exception::class);
         $file = new File(['type' => 'file']);
     }
 
