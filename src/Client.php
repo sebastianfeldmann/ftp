@@ -93,7 +93,8 @@ class Client
         if (!extension_loaded('ftp')) {
             throw new RuntimeException('FTP extension is not loaded.');
         }
-        $this->passive = $passive;
+        $this->passive  = $passive;
+        $this->isSecure = $isSecure;
         $this->setup($url);
         $this->login();
     }
@@ -159,7 +160,7 @@ class Client
     }
 
     /**
-     * Return list of all files in directory for php versione below 7.2.0.
+     * Return list of all files in directory for php version below 7.2.0.
      *
      * @param  string $path
      * @return \SebastianFeldmann\Ftp\File[]
@@ -269,15 +270,17 @@ class Client
             throw new RuntimeException('no host to connect to');
         }
 
-        $old = error_reporting(0);
+        $old  = error_reporting(0);
+        $link = $this->isSecure
+              ? ftp_ssl_connect($this->host, $this->port)
+              : ftp_connect($this->host, $this->port);
 
-        $this->connection = ($this->isSecure ? ftp_ssl_connect($this->host, $this->port) : ftp_connect($this->host, $this->port));
-
-        if (!$this->connection) {
+        if (!$link) {
             error_reporting($old);
             throw new RuntimeException(sprintf('unable to connect to ftp server %s', $this->host));
         }
 
+        $this->connection = $link;
         if (!ftp_login($this->connection, $this->user, $this->password)) {
             error_reporting($old);
             throw new RuntimeException(
