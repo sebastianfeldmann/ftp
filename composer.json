@@ -30,7 +30,7 @@
     "ext-ftp": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.5 || ^7.0"
+    "phpunit/phpunit": "^8.0 || ^9.0"
   },
   "suggest": {
     "ext-openssl": "This should be loaded if connecting server via FTPS."

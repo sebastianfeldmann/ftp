@@ -9,7 +9,9 @@
  */
 namespace SebastianFeldmann\Ftp;
 
+use Exception;
 use RuntimeException;
+use function parse_url;
 
 /**
  * Class Client
@@ -82,6 +84,13 @@ class Client
     private $isSecure;
 
     /**
+     * FTP home directory
+     *
+     * @var string
+     */
+    private $homeDir;
+
+    /**
      * Client constructor.
      *
      * @param string $url
@@ -112,7 +121,7 @@ class Client
             $this->chDir($name);
             $this->chDir($current);
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // do nothing
         }
         return false;
@@ -125,7 +134,7 @@ class Client
      */
     public function chHome()
     {
-        $this->chDir('');
+        $this->chDir($this->homeDir);
     }
 
     /**
@@ -233,7 +242,7 @@ class Client
             // create the dir and change into it afterwards
             try {
                 $this->chDir($dir);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->mkDir($dir);
                 $this->chDir($dir);
             }
@@ -252,7 +261,7 @@ class Client
      */
     private function setup(string $url)
     {
-        $parts          = \parse_url($url);
+        $parts          = parse_url($url);
         $this->host     = $parts['host'] ?? '';
         $this->port     = $parts['port'] ?? 21;
         $this->user     = $parts['user'] ?? '';
@@ -287,9 +296,13 @@ class Client
                 sprintf('authentication failed for %s@%s', $this->user, $this->host)
             );
         }
+        error_reporting($old);
+
         // set passive mode if needed
         $this->pasv($this->passive);
-        error_reporting($old);
+
+        // store ftp home directory
+        $this->homeDir = $this->pwd();
     }
 
     /**
