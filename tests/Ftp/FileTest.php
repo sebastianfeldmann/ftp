@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of SebastianFeldmann\Ftp.
  *
@@ -7,8 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianFeldmann\Ftp;
 
+use DateTimeImmutable;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +27,7 @@ class FileTest extends TestCase
      */
     public function testConstructNoType()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $file = new File([]);
     }
 
@@ -32,7 +36,7 @@ class FileTest extends TestCase
      */
     public function testConstructNoName()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $file = new File(['type' => 'file']);
     }
 
@@ -44,7 +48,7 @@ class FileTest extends TestCase
         $file = new File(['type' => 'file', 'name' => 'foo.txt', 'size' => 100]);
         $date = $file->getLastModifyDate();
 
-        $this->assertInstanceOf(\DateTimeImmutable::class, $date);
+        $this->assertInstanceOf(DateTimeImmutable::class, $date);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of SebastianFeldmann\Ftp.
  *
@@ -7,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianFeldmann\Ftp;
 
 use RuntimeException;
@@ -74,7 +76,14 @@ function call_user_func_array($name = '', $args = '', $isTwice = false)
     static $iterations;
 
     if ($isTwice) {
-        if ($name === 'ftp_mlsd' || $name === 'ftp_mdtm' || $name === 'ftp_nlist' || $name === 'ftp_chdir' || $name === 'ftp_pwd' || $name === 'ftp_size') {
+        if (
+            $name === 'ftp_mlsd'
+            || $name === 'ftp_mdtm'
+            || $name === 'ftp_nlist'
+            || $name === 'ftp_chdir'
+            || $name === 'ftp_pwd'
+            || $name === 'ftp_size'
+        ) {
             $iterations[$name] = 0;
         }
 
