@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of SebastianFeldmann\Ftp.
  *
@@ -7,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianFeldmann\Ftp;
 
 use DateTimeImmutable;
@@ -97,7 +99,7 @@ class File
      *
      * @return string
      */
-    public function getUniqueName() : string
+    public function getUniqueName(): string
     {
         return $this->unique;
     }
@@ -107,7 +109,7 @@ class File
      *
      * @return \DateTimeImmutable
      */
-    public function getLastModifyDate() : DateTimeImmutable
+    public function getLastModifyDate(): DateTimeImmutable
     {
         return $this->modify;
     }
@@ -117,7 +119,7 @@ class File
      *
      * @return string
      */
-    public function getFilename() : string
+    public function getFilename(): string
     {
         return $this->name;
     }
@@ -127,7 +129,7 @@ class File
      *
      * @return int
      */
-    public function getSize() : int
+    public function getSize(): int
     {
         return $this->size;
     }
@@ -137,7 +139,7 @@ class File
      *
      * @return bool
      */
-    public function isDir() : bool
+    public function isDir(): bool
     {
         return $this->type === 'dir';
     }
@@ -147,7 +149,7 @@ class File
      *
      * @return bool
      */
-    public function isFile() : bool
+    public function isFile(): bool
     {
         return $this->type === 'file';
     }

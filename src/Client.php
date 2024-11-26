@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of SebastianFeldmann\Ftp.
  *
@@ -7,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianFeldmann\Ftp;
 
 use Exception;
 use RuntimeException;
+
 use function parse_url;
 
 /**
@@ -37,7 +40,7 @@ class Client
     /**
      * PHP FTP connection resource.
      *
-     * @var resource
+     * @var mixed
      */
     private $connection;
 
@@ -144,12 +147,11 @@ class Client
      * @return \SebastianFeldmann\Ftp\File[]
      * @throws \Exception
      */
-    public function ls(string $path = '') : array
+    public function ls(string $path = ''): array
     {
         return version_compare(PHP_VERSION, '7.2.0', '>=')
             ? $this->ls72($path)
             : $this->lsLegacy($path);
-
     }
 
     /**
@@ -159,7 +161,7 @@ class Client
      * @return \SebastianFeldmann\Ftp\File[]
      * @throws \Exception
      */
-    private function ls72(string $path) : array
+    private function ls72(string $path): array
     {
         $list = [];
         foreach ($this->mlsd($path) as $fileInfo) {
@@ -175,7 +177,7 @@ class Client
      * @return \SebastianFeldmann\Ftp\File[]
      * @throws \Exception
      */
-    private function lsLegacy(string $path) : array
+    private function lsLegacy(string $path): array
     {
         $list = [];
         foreach ($this->nlist($path) as $name) {
@@ -199,11 +201,11 @@ class Client
      * @return array
      * @throws \Exception
      */
-    public function lsDirs(string $path = '') : array
+    public function lsDirs(string $path = ''): array
     {
         return array_filter(
             $this->ls($path),
-            function(File $file) {
+            function (File $file) {
                 return $file->isDir();
             }
         );
@@ -216,11 +218,11 @@ class Client
      * @return array
      * @throws \Exception
      */
-    public function lsFiles(string $path = '') : array
+    public function lsFiles(string $path = ''): array
     {
         return array_filter(
             $this->ls($path),
-            function(File $file) {
+            function (File $file) {
                 return $file->isFile();
             }
         );
@@ -311,7 +313,7 @@ class Client
      * @param  string $path
      * @return array
      */
-    private function extractDirectories(string $path) : array
+    private function extractDirectories(string $path): array
     {
         $remoteDirs = [];
         if (!empty($path)) {
