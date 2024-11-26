@@ -9,11 +9,13 @@
  */
 namespace SebastianFeldmann\Ftp;
 
+use RuntimeException;
+
 /**
  * Mock internal ftp_connect.
  *
  * @param  string $host
- * @param  string $port
+ * @param  int    $port
  * @return array
  */
 function ftp_connect($host, $port)
@@ -26,8 +28,8 @@ function ftp_connect($host, $port)
  * Mock internal ftp_ssl_connect.
  *
  * @param  string $host
- * @param  string $port
- * @return array
+ * @param  int    $port
+ * @return array<string, mixed>
  */
 function ftp_ssl_connect($host, $port)
 {
@@ -37,7 +39,7 @@ function ftp_ssl_connect($host, $port)
 /**
  * Mock internal ftp_login.
  *
- * @param  array  $connection
+ * @param  mixed $connection
  * @param  string $user
  * @param  string $password
  * @return bool
@@ -46,16 +48,16 @@ function ftp_ssl_connect($host, $port)
 function ftp_login($connection, $user, $password)
 {
     if ($connection['host'] != 'example.com') {
-        throw new \RuntimeException('invalid connection');
+        throw new RuntimeException('invalid connection');
     }
     if ($connection['port'] != 21) {
-        throw new \RuntimeException('invalid connection');
+        throw new RuntimeException('invalid connection');
     }
     if (empty($user)) {
-        throw new \RuntimeException('invalid user');
+        throw new RuntimeException('invalid user');
     }
     if (empty($password)) {
-        throw new \RuntimeException('invalid password');
+        throw new RuntimeException('invalid password');
     }
     return true;
 }
