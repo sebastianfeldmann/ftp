@@ -165,7 +165,7 @@ class Client
     {
         $list = [];
         foreach ($this->mlsd($path) as $fileInfo) {
-            $list[] = new File($fileInfo);
+            $list[] = new File($this->normalize($fileInfo));
         }
         return $list;
     }
@@ -349,5 +349,20 @@ class Client
         }
         error_reporting($old);
         return $result;
+    }
+
+    /**
+     * Normalizes the ftp return values, so all keys are lower case
+     *
+     * @param array $map
+     * @return array
+     */
+    private function normalize(array $map): array
+    {
+        $normalized = [];
+        foreach ($map as $key => $value) {
+            $normalized[strtolower($key)] = $value;
+        }
+        return $normalized;
     }
 }
